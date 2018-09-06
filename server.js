@@ -104,6 +104,9 @@ apiRoutes.get('/mytrips', trip_controller.my_trips);
 // route to get a single trip (GET http://localhost:8080/app/trips/:trip_id)
 apiRoutes.get('/trips/:trip_id', trip_controller.get_trip);
 
+// route to delete a single trip (DELETE http://localhost:8080/app/trips/:trip_id)
+apiRoutes.delete('/trips/:trip_id', trip_controller.delete_trip);
+
 // apply the routes to our application with the prefix /app
 app.use('/app', apiRoutes);
 

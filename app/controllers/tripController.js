@@ -49,3 +49,14 @@ exports.get_trip = function(req, res) {
 		}
   });
 };
+
+// route to delete a single trip (DELETE http://localhost:8080/app/trips/:trip_id)
+exports.delete_trip = function(req, res) {
+	Trip.findByIdAndDelete(req.params.trip_id, function(err, trip) {
+    if (err) {
+      res.json(err);
+		} else {
+			res.json({ success: true, message: 'Trip deleted.' });
+		}
+  });
+};
