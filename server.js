@@ -18,6 +18,15 @@ var trip_controller = require('./app/controllers/tripController');
 // configuration =========
 // =======================
 var port = process.env.PORT || 8080; // used to create, sign, and verify tokens
+
+mongoose.connection.on('connected', function() {
+    // Hack the database back to the right one, because when using mongodb+srv as protocol.
+    if (mongoose.connection.client.s.url.startsWith('mongodb+srv')) {
+        mongoose.connection.db = mongoose.connection.client.db('portfolio');
+    }
+    console.log('Connection to MongoDB established.')
+});
+
 mongoose.connect(config.database, { useNewUrlParser: true }); // connect to database
 
 app.set('superSecret', config.secret); // secret variable
