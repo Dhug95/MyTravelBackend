@@ -7,6 +7,7 @@ exports.create_trip = function(req, res) {
 	var name = req.query.name
 	var start = req.query.start
 	var end = req.query.end
+	var image = req.query.image
 
 	User.findById(req.decoded.id, function(err, user) {
 		// create user with parameters
@@ -14,7 +15,9 @@ exports.create_trip = function(req, res) {
 			name: name,
 			startDate: start,
 			endDate: end,
-			creator: user._id
+			creator: user._id,
+			image: image,
+			participants: [ user._id ]
 		});
 
 		// save the new user
