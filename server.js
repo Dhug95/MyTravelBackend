@@ -19,7 +19,7 @@ var trip_controller = require('./app/controllers/tripController');
 // =======================
 var port = process.env.PORT || 8080; // used to create, sign, and verify tokens
 
-mongoose.connect(config.database, { useNewUrlParser: true }); // connect to database
+mongoose.connect(config.databasecloud, { useNewUrlParser: true }); // connect to database
 
 app.set('superSecret', config.secret); // secret variable
 
