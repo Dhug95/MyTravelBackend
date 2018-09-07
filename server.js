@@ -50,38 +50,41 @@ apiRoutes.post('/authenticate', user_controller.authenticate);
 // route for facebook login (POST http://localhost:8080/app/facebook_login)
 apiRoutes.post('/facebook_login', user_controller.facebook_authenticate);
 
+// route to retrieve forgotten password (GET http://localhost:8080/app/forgot_password)
+apiRoutes.get('/forgot_password', user_controller.forgot_password);
+
 // =======================
 
 // middleware for token
 apiRoutes.use(function (req, res, next) {
 
-  // check header or url parameters or post parameters for token
-  const token = req.body.token || req.query.token || req.headers['x-access-token'];
+    // check header or url parameters or post parameters for token
+    const token = req.body.token || req.query.token || req.headers['x-access-token'];
 
-  // decode token
-  if (token) {
+    // decode token
+    if (token) {
 
-    // verifies secret and checks exp
-    jwt.verify(token, app.get('superSecret'), function (err, decoded) {
-      if (err) {
-        return res.json({success: false, message: 'Failed to authenticate token.'});
-      } else {
-        // if everything is good, save to request for use in other routes
-        req.decoded = decoded;
-        next();
-      }
-    });
+        // verifies secret and checks exp
+        jwt.verify(token, app.get('superSecret'), function (err, decoded) {
+            if (err) {
+                return res.json({success: false, message: 'Failed to authenticate token.'});
+            } else {
+                // if everything is good, save to request for use in other routes
+                req.decoded = decoded;
+                next();
+            }
+        });
 
-  } else {
+    } else {
 
-    // if there is no token
-    // return an error
-    return res.status(403).send({
-      success: false,
-      message: 'No token provided.'
-    });
+        // if there is no token
+        // return an error
+        return res.status(403).send({
+            success: false,
+            message: 'No token provided.'
+        });
 
-  }
+    }
 });
 
 // =======================
