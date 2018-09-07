@@ -1,62 +1,62 @@
-var User = require('../models/user');
-var Trip = require('../models/trip');
+const User = require('../models/user');
+const Trip = require('../models/trip');
 
 // route to create a trip (POST http://localhost:8080/app/trips)
-exports.create_trip = function(req, res) {
-	// get parameters
-	var name = req.query.name
-	var start = req.query.start
-	var end = req.query.end
-	var image = req.query.image
+exports.create_trip = function (req, res) {
+  // get parameters
+  const name = req.query.name;
+  const start = req.query.start;
+  const end = req.query.end;
+  const image = req.query.image;
 
-	User.findById(req.decoded.id, function(err, user) {
-		// create user with parameters
-		var newTrip = new Trip({
-			name: name,
-			startDate: start,
-			endDate: end,
-			creator: user._id,
-			image: image,
-			participants: [ user._id ]
-		});
+  User.findById(req.decoded.id, function (err, user) {
+    // create user with parameters
+    const newTrip = new Trip({
+      name: name,
+      startDate: start,
+      endDate: end,
+      creator: user._id,
+      image: image,
+      participants: [user._id]
+    });
 
-		// save the new user
-		newTrip.save(function(err) {
-			if (err) {
-				res.json({ success: false, message: err.message });
-			} else {
-				res.json({ success: true, message: 'Trip correctly added.' });
-			}
-		});
-	});
+    // save the new user
+    newTrip.save(function (err) {
+      if (err) {
+        res.json({success: false, message: err.message});
+      } else {
+        res.json({success: true, message: 'Trip correctly added.'});
+      }
+    });
+  });
 
 };
 
 // route to return all my trips (GET http://localhost:8080/app/mytrips)
-exports.my_trips = function(req, res) {
-  Trip.find({ creator: req.decoded.id }, function(err, trips) {
+exports.my_trips = function (req, res) {
+  Trip.find({creator: req.decoded.id}, function (err, trips) {
     res.json(trips);
   });
 };
 
 // route to get a single trip (GET http://localhost:8080/app/trips/:trip_id)
-exports.get_trip = function(req, res) {
-  Trip.findById(req.params.trip_id, function(err, trip) {
+exports.get_trip = function (req, res) {
+  Trip.findById(req.params.trip_id, function (err, trip) {
     if (err) {
       res.json(err);
-		} else {
-			res.json(trip);
-		}
+    } else {
+      res.json(trip);
+    }
   });
 };
 
 // route to delete a single trip (DELETE http://localhost:8080/app/trips/:trip_id)
-exports.delete_trip = function(req, res) {
-	Trip.findByIdAndDelete(req.params.trip_id, function(err, trip) {
+exports.delete_trip = function (req, res) {
+  Trip.findByIdAndDelete(req.params.trip_id, function (err, trip) {
     if (err) {
       res.json(err);
-		} else {
-			res.json({ success: true, message: 'Trip deleted.' });
-		}
+    } else {
+      res.json({success: true, message: 'Trip deleted.'});
+    }
   });
 };

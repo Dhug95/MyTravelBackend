@@ -1,15 +1,16 @@
 // get an instance of mongoose and mongoose.Schema
-var mongoose = require('mongoose');
-var uniqueValidator = require('mongoose-unique-validator');
+const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 mongoose.set('useCreateIndex', true);
 
-var userSchema = new Schema({
-	email: { type: String, unique: true, required: true },
-	username: { type: String, unique: true, required: true },
-	password: { type: String }
+const userSchema = new Schema({
+  email: {type: String, unique: true, required: true},
+  username: {type: String, unique: true, required: true},
+  password: String,
+  facebook: Boolean
 });
 
 userSchema.plugin(uniqueValidator);

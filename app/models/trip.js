@@ -1,18 +1,18 @@
 // get an instance of mongoose and mongoose.Schema
-var mongoose = require('mongoose');
-var uniqueValidator = require('mongoose-unique-validator');
+const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 mongoose.set('useCreateIndex', true);
 
-var tripSchema = new Schema({
-	name: { type: String, required: true },
-	startDate: { type: String, required: true },
-	endDate: { type: String, required: true },
-	creator: { type: String, required: true },
-	image: String,
-	participants: [String]
+const tripSchema = new Schema({
+  name: {type: String, required: true},
+  startDate: {type: String, required: true},
+  endDate: {type: String, required: true},
+  creator: {type: String, required: true},
+  image: String,
+  participants: [String]
 });
 
 tripSchema.plugin(uniqueValidator);
