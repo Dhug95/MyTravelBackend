@@ -47,6 +47,8 @@ apiRoutes.post('/register', user_controller.register);
 // route to authenticate a user (POST http://localhost:8080/app/authenticate)
 apiRoutes.post('/authenticate', user_controller.authenticate);
 
+// route for facebook login (POST http://localhost:8080/app/facebook_login)
+apiRoutes.post('/facebook_login', user_controller.facebook_authenticate);
 
 // =======================
 

@@ -4,6 +4,7 @@ var express = require('express');
 var app = express();
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('../../config'); // get our config file
+const graph = require('fbgraph');
 
 app.set('superSecret', config.secret); // secret variable
 
@@ -73,6 +74,26 @@ exports.authenticate = function(req, res) {
     }
 
   });
+};
+
+// route for facebook login (POST http://localhost:8080/app/facebook_login)
+exports.facebook_authenticate = function(req, res) {
+	const facebook_token = req.query.facebook_token;
+
+	var options = {
+    timeout:  3000,
+   	pool:     { maxSockets:  Infinity },
+   	headers:  { connection:  "keep-alive" }
+	};
+
+	graph
+		.setAccessToken(facebook_token)
+	  .setOptions(options)
+	  .get('me?fields=name, email', function(err, res) {
+	    console.log(res); // { id: '4', name: 'Mark Zuckerberg'... }
+	  });
+
+		res.json({ success: true, message: 'Dio cane' });
 };
 
 // route to get info about my user (GET http://localhost:8080/app/myprofile)

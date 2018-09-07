@@ -4,11 +4,14 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "fbgraph": "^1.4.4",
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.2.12",
     "mongoose-beautiful-unique-validation": "^7.1.1",
     "mongoose-unique-validator": "^2.0.1",
     "morgan": "^1.9.0",
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.4",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
   }
 }

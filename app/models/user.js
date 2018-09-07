@@ -9,7 +9,7 @@ mongoose.set('useCreateIndex', true);
 var userSchema = new Schema({
 	email: { type: String, unique: true, required: true },
 	username: { type: String, unique: true, required: true },
-	password: { type: String, required: true }
+	password: { type: String }
 });
 
 userSchema.plugin(uniqueValidator);
