@@ -7,11 +7,15 @@ exports.create_dest = function (req, res) {
     const name = req.query.name;
     const country = req.query.country;
     const trip_id = req.query.trip_id;
+    const latitude = req.query.latitude;
+    const longitude = req.query.longitude;
 
     const newDest = new Dest({
         name: name,
         country: country,
-        trip: trip_id
+        trip: trip_id,
+        latitude: latitude,
+        longitude: longitude
     });
 
     // save the destination
@@ -44,3 +48,18 @@ exports.get_destination = function (req, res) {
         }
     });
 };
+
+/* route to get info about weather
+apiRoutes.get('/dest_weather', function (req, res) {
+    const lat = req.query.lat;
+    const lon = req.query.lng;
+    const APIKEY = 'a20716cacf4034bea5188e75d6a0b44b';
+
+    request(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${APIKEY}&units=metric`,
+        {json: true}, (err, forecast, body) => {
+            if (err) {
+                return console.log(err);
+            }
+            res.json(forecast['body']);
+        });
+}); */

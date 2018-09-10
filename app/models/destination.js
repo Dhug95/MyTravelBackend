@@ -9,7 +9,9 @@ mongoose.set('useCreateIndex', true);
 const destSchema = new Schema({
     name: {type: String, required: true},
     country: {type: String, required: true},
-    trip: {type: String, required: true}
+    trip: {type: String, required: true},
+    latitude: {type: String, required: true},
+    longitude: {type: String, required: true}
 });
 
 destSchema.plugin(uniqueValidator);
