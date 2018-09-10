@@ -138,6 +138,9 @@ apiRoutes.post('/trips/:trip_id/destinations', dest_controller.create_dest);
 // route to create a dest (GET http://localhost:8080/app/trips/:trip_id/destinations)
 apiRoutes.get('/trips/:trip_id/destinations', dest_controller.get_dests);
 
+// route to get a single dest (GET http://localhost:8080/app/trips/:trip_id/destinations/:dest_id)
+apiRoutes.get('/trips/:trip_id/destinations/:dest_id', dest_controller.get_destination);
+
 // apply the routes to our application with the prefix /app
 app.use('/app', apiRoutes);
 

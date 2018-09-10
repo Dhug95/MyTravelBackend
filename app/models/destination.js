@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 mongoose.set('useCreateIndex', true);
 
 const destSchema = new Schema({
-    name: {type: String, required: true, unique: true},
+    name: {type: String, required: true},
     country: {type: String, required: true},
     trip: {type: String, required: true}
 });

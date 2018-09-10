@@ -17,7 +17,7 @@ exports.create_dest = function (req, res) {
     // save the destination
     newDest.save(function (err) {
         if (err) {
-            console.log("Error");
+            console.log(err.message);
             res.json({success: false, message: err.message});
         } else {
             console.log("Success");
@@ -29,7 +29,18 @@ exports.create_dest = function (req, res) {
 // route to get destinations (GET http://localhost:8080/app/trips/:trip_id/destinations)
 exports.get_dests = function (req, res) {
     const trip_id = req.query.trip_id;
-    Dest.find({trip: trip_id}, function(err, dests) {
+    Dest.find({trip: trip_id}, function (err, dests) {
         res.json(dests);
+    });
+};
+
+// route to get a single dest (GET http://localhost:8080/app/trips/:trip_id/destinations/:dest_id)
+exports.get_destination = function (req, res) {
+    Dest.findById(req.params.dest_id, function (err, dest) {
+        if (err) {
+            res.json({success: false, message: err.message});
+        } else {
+            res.json(dest);
+        }
     });
 };
