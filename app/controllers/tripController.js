@@ -17,7 +17,7 @@ exports.create_trip = function (req, res) {
             endDate: end,
             creator: user._id,
             image: image,
-            participants: [user._id]
+            participants: [user.username]
         });
 
         // save the new user
@@ -83,4 +83,16 @@ exports.add_participant = function (req, res) {
             }
         }
     });
+};
+
+//route to get participants list (GET http://localhost:8080/app/trips/:trip_id/get_participants)
+exports.get_participants = function (req, res) {
+    const trip_id = req.query.trip_id;
+    Trip.findById(trip_id, function (err, trip) {
+        if (err) {
+            res.json({success: false, message: err.message});
+        } else {
+            res.json(trip.participants);
+        }
+    })
 };
