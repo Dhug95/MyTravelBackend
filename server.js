@@ -22,7 +22,7 @@ const dest_controller = require('./app/controllers/destController');
 // =======================
 const port = process.env.PORT || 8080; // used to create, sign, and verify tokens
 
-mongoose.connect(config.databasecloud, {useNewUrlParser: true}); // connect to database
+mongoose.connect(config.database, {useNewUrlParser: true}); // connect to database
 
 app.set('superSecret', config.secret); // secret variable
 
@@ -114,6 +114,9 @@ apiRoutes.get('/trips/:trip_id', trip_controller.get_trip);
 
 // route to delete a single trip (DELETE http://localhost:8080/app/trips/:trip_id)
 apiRoutes.delete('/trips/:trip_id', trip_controller.delete_trip);
+
+//route to add a participant to the trip (POST http://localhost:8080/app/trips/:trip_id/add_participant)
+apiRoutes.post('/trips/:trip_id/add_participant', trip_controller.add_participant);
 
 
 /// DEST CONTROLLER
