@@ -66,14 +66,14 @@ exports.add_participant = function (req, res) {
     const trip_id = req.query.trip_id;
     const username = req.query.username;
 
-    User.findOne({ username: username }, function (err, user) {
+    User.findOne({username: username}, function (err, user) {
         if (err) {
             res.json({success: false, message: err.message});
         } else {
             if (!user) {
                 res.json({success: false, message: "User not found."});
             } else {
-                Trip.findByIdAndUpdate(trip_id, { $push: { participants: username }}, function (err, trip) {
+                Trip.findByIdAndUpdate(trip_id, {$push: {participants: username}}, function (err, trip) {
                     if (err) {
                         res.json({success: false, message: err.message});
                     } else {
@@ -96,3 +96,36 @@ exports.get_participants = function (req, res) {
         }
     })
 };
+
+//route to add a payment to the trip (POST http://localhost:8080/app/trips/:trip_id/add_payment)
+exports.add_payment = function (req, res) {
+    const trip_id = req.query.trip_id;
+    const amount = req.query.amount;
+    const username = req.decoded.username;
+
+    const newPayment = {
+        username: username,
+        amount: amount
+    };
+
+    Trip.findByIdAndUpdate(trip_id, {$push: {payments: newPayment}}, function (err, trip) {
+        if (err) {
+            res.json({success: false, message: err.message});
+        } else {
+            res.json({success: true, message: 'Payment added.'});
+        }
+    });
+};
+
+//route to get payment list (GET http://localhost:8080/app/trips/:trip_id/get_payments)
+exports.get_payments = function (req, res) {
+    const trip_id = req.query.trip_id;
+    Trip.findById(trip_id, function (err, trip) {
+        if (err) {
+            res.json({success: false, message: err.message});
+        } else {
+            res.json(trip.payments);
+        }
+    })
+};
+

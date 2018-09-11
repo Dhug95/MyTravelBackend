@@ -7,12 +7,13 @@ const Schema = mongoose.Schema;
 mongoose.set('useCreateIndex', true);
 
 const tripSchema = new Schema({
-  name: {type: String, required: true},
-  startDate: {type: String, required: true},
-  endDate: {type: String, required: true},
-  creator: {type: String, required: true},
-  image: String,
-  participants: [String]
+    name: {type: String, required: true},
+    startDate: {type: String, required: true},
+    endDate: {type: String, required: true},
+    creator: {type: String, required: true},
+    image: String,
+    participants: [String],
+    payments: [{username: {type: String}, amount: {type: String}}]
 });
 
 tripSchema.plugin(uniqueValidator);

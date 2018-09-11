@@ -59,7 +59,8 @@ exports.authenticate = function (req, res) {
                 // create a token with only our given payload
                 // we don't want to pass in the entire user since that has the password
                 const payload = {
-                    id: user._id
+                    id: user._id,
+                    username: user.username
                     //admin: user.admin
                 };
 
@@ -123,7 +124,8 @@ exports.facebook_authenticate = function (req, res) {
                             res.json({success: false, message: err.message});
                         } else {
                             const payload = {
-                                id: newUser._id
+                                id: newUser._id,
+                                username: newUser.username
                             };
                             validateFBlogin(payload, res);
                         }
@@ -131,7 +133,8 @@ exports.facebook_authenticate = function (req, res) {
 
                 } else {
                     const payload = {
-                        id: user._id
+                        id: user._id,
+                        username: newUser.username
                     };
                     validateFBlogin(payload, res);
                 }
