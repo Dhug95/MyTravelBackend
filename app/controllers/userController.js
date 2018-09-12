@@ -134,7 +134,7 @@ exports.facebook_authenticate = function (req, res) {
                 } else {
                     const payload = {
                         id: user._id,
-                        username: newUser.username
+                        username: user.username
                     };
                     validateFBlogin(payload, res);
                 }
@@ -161,31 +161,35 @@ exports.update_profile = function (req, res) {
             res.json({success: false, message: 'Current password not correct.'});
         } else {
 
-            if (newUsername != null) {
-                User.findByIdAndUpdate(req.decoded.id, {username: newUsername}, function (err, user) {
-                    if (err) {
-                        res.json(err);
-                    }
-                });
-            }
+            if (newUsername == null && newEmail == null && newPassword == null) {
+                res.json({success: false, message: 'No information provided.'});
+            } else {
+                if (newUsername != null) {
+                    User.findByIdAndUpdate(req.decoded.id, {username: newUsername}, function (err, user) {
+                        if (err) {
+                            res.json(err);
+                        }
+                    });
+                }
 
-            if (newEmail != null) {
-                User.findByIdAndUpdate(req.decoded.id, {email: newEmail}, function (err, user) {
-                    if (err) {
-                        res.json(err);
-                    }
-                });
-            }
+                if (newEmail != null) {
+                    User.findByIdAndUpdate(req.decoded.id, {email: newEmail}, function (err, user) {
+                        if (err) {
+                            res.json(err);
+                        }
+                    });
+                }
 
-            if (newPassword != null) {
-                User.findByIdAndUpdate(req.decoded.id, {password: newPassword}, function (err, user) {
-                    if (err) {
-                        res.json(err);
-                    }
-                });
-            }
+                if (newPassword != null) {
+                    User.findByIdAndUpdate(req.decoded.id, {password: newPassword}, function (err, user) {
+                        if (err) {
+                            res.json(err);
+                        }
+                    });
+                }
 
-            res.json({success: true, message: 'Info updated.'});
+                res.json({success: true, message: 'Info updated.'});
+            }
         }
     });
 };

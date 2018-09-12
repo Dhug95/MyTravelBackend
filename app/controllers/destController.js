@@ -49,6 +49,17 @@ exports.get_destination = function (req, res) {
     });
 };
 
+// route to delete a single destination (DELETE http://localhost:8080/app/trips/:trip_id/destinations/:dest_id)
+exports.delete_destination = function (req, res) {
+    Dest.findByIdAndDelete(req.params.dest_id, function (err, dest) {
+        if (err) {
+            res.json({success: false, message: err.message});
+        } else {
+            res.json({success: true, message: 'Destination deleted.'});
+        }
+    });
+};
+
 /* route to get info about weather
 apiRoutes.get('/dest_weather', function (req, res) {
     const lat = req.query.lat;
