@@ -39,7 +39,7 @@ exports.create_trip = function (req, res) {
 
 // route to return all my trips (GET http://localhost:8080/app/mytrips)
 exports.my_trips = function (req, res) {
-    Trip.find({creator: req.decoded.id}, function (err, trips) {
+    Trip.find({participants: req.decoded.username}, function (err, trips) {
         res.json(trips);
     });
 };
@@ -86,6 +86,20 @@ exports.add_participant = function (req, res) {
                     }
                 });
             }
+        }
+    });
+};
+
+//route to delete a participant to the trip (DELETE http://localhost:8080/app/trips/:trip_id/remove_part)
+exports.remove_participant = function (req, res) {
+    const trip_id = req.query.trip_id;
+    const username = req.query.username;
+
+    Trip.findByIdAndUpdate(trip_id, {$pull: {participants: username}}, function (err, trip) {
+        if (err) {
+            res.json({success: false, message: err.message});
+        } else {
+            res.json({success: true, message: 'User removed.'});
         }
     });
 };

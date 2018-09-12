@@ -118,6 +118,9 @@ apiRoutes.delete('/trips/:trip_id', trip_controller.delete_trip);
 //route to add a participant to the trip (POST http://localhost:8080/app/trips/:trip_id/add_participant)
 apiRoutes.post('/trips/:trip_id/add_participant', trip_controller.add_participant);
 
+//route to delete a participant to the trip (DELETE http://localhost:8080/app/trips/:trip_id/remove_part)
+apiRoutes.delete('/trips/:trip_id/remove_part', trip_controller.remove_participant);
+
 //route to get participants list (GET http://localhost:8080/app/trips/:trip_id/get_participants)
 apiRoutes.get('/trips/:trip_id/get_participants', trip_controller.get_participants);
 
