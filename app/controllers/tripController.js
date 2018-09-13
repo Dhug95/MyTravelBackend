@@ -148,3 +148,23 @@ exports.get_payments = function (req, res) {
     })
 };
 
+//route to remove payment (DELETE http://localhost:8080/app/trips/:trip_id/remove_payment)
+exports.remove_payment = function (req, res) {
+    const trip_id = req.query.trip_id;
+    const payment_id = req.query.payment_id;
+    const username = req.query.username;
+    const amount = req.query.amount;
+
+    const paymentToRemove = {
+        username: username,
+        amount: amount
+    };
+
+    Trip.findByIdAndUpdate(trip_id, {$pull: {payments: paymentToRemove}}, function (err, trip) {
+        if (err) {
+            res.json({success: false, message: err.message});
+        } else {
+            res.json({success: true, message: 'Payment deleted.'});
+        }
+    });
+};

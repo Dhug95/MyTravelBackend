@@ -130,7 +130,12 @@ apiRoutes.post('/trips/:trip_id/add_payment', trip_controller.add_payment);
 //route to get payments list (GET http://localhost:8080/app/trips/:trip_id/get_payments)
 apiRoutes.get('/trips/:trip_id/get_payments', trip_controller.get_payments);
 
+//route to remove payment (DELETE http://localhost:8080/app/trips/:trip_id/remove_payment)
+apiRoutes.delete('/trips/:trip_id/remove_payment', trip_controller.remove_payment);
+
+
 /// DEST CONTROLLER
+
 
 // route to create a dest (POST http://localhost:8080/app/trips/:trip_id/destinations)
 apiRoutes.post('/trips/:trip_id/destinations', dest_controller.create_dest);
