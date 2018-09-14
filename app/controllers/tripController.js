@@ -143,7 +143,7 @@ exports.get_payments = function (req, res) {
         if (err) {
             res.json({success: false, message: err.message});
         } else {
-            res.json(trip.payments);
+            res.json({payments: trip.payments, user: req.decoded.username, number: trip.participants.length});
         }
     })
 };
@@ -156,8 +156,7 @@ exports.remove_payment = function (req, res) {
     const amount = req.query.amount;
 
     const paymentToRemove = {
-        username: username,
-        amount: amount
+        _id: payment_id
     };
 
     Trip.findByIdAndUpdate(trip_id, {$pull: {payments: paymentToRemove}}, function (err, trip) {

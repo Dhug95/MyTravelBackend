@@ -15,8 +15,6 @@ const request = require('request');
 const user_controller = require('./app/controllers/userController');
 const trip_controller = require('./app/controllers/tripController');
 const dest_controller = require('./app/controllers/destController');
-const balance_controller = require('./app/controllers/balanceController');
-
 
 // =======================
 // configuration =========
@@ -149,13 +147,6 @@ apiRoutes.get('/trips/:trip_id/destinations/:dest_id', dest_controller.get_desti
 
 // route to delete a single destination (DELETE http://localhost:8080/app/trips/:trip_id/destinations/:dest_id)
 apiRoutes.delete('/trips/:trip_id/destinations/:dest_id', dest_controller.delete_destination);
-
-
-/// BALANCE CONTROLLER
-
-
-// route to create a balance (POST http://localhost:8080/app/balance)
-apiRoutes.post('/balance', balance_controller.create_balance);
 
 
 // apply the routes to our application with the prefix /app
