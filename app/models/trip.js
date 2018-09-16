@@ -11,7 +11,6 @@ const tripSchema = new Schema({
     startDate: {type: String, required: true},
     endDate: {type: String, required: true},
     creator: {type: String, required: true},
-    image: String,
     participants: [String],
     payments: [{username: {type: String}, amount: {type: String}}]
 });
